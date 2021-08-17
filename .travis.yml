@@ -1,0 +1,25 @@
+# Docker needs superuser permissions
+sudo: required
+
+# Added per React Create App errata stuff
+language: generic 
+
+# Get Docker ready
+services:
+  - docker
+
+before_install:
+# Use a tag here since we won't easily get the ID back
+# Tag only used in this Travis process so could use anything.
+  - docker build -t rpetty2012/docker-react -f Dockerfile.dev .
+
+script:
+# How to run the test suite.
+# Any code not zero means broken
+# Travis assumes it ran, or errored.
+# NPM run test never exists on its own so it will wait until you give a result
+# adding "-- --coverage" changes the default command to generate the correct
+# output once it runs the tests (which is automatically on startup)
+#
+# -e CI=true added due to React Create App issues.
+  - docker run -e CI=true rpetty2012/docker-react npm run test -- --coverage
