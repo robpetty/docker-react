@@ -1,0 +1,41 @@
+FROM node:alpine
+ 
+USER node
+ 
+RUN mkdir -p /home/node/app
+WORKDIR /home/node/app
+ 
+COPY --chown=node:node ./package.json ./
+RUN npm install
+
+# Given we are using volumes on the entire /frontend folder, don't really need 
+# this anymore, but no harm leaving, and will need for deploying to other systems like prod anyway most likely.
+COPY --chown=node:node ./ ./
+ 
+CMD ["npm", "run", "start"]
+
+
+# This v2 didn't work, seems couldn't need the volume files
+# Eacces fix for volumes on WSL2
+# FROM node:alpine
+
+# USER node
+
+# RUN mkdir -p /home/node/frontend
+# WORKDIR /home/node/frontend
+
+# COPY --chown=node:node ./package.json ./
+# RUN npm install
+# COPY --chown=node:node ./ ./
+
+# CMD ["npm", "run", "start"]
+
+
+
+# Original config, but had to change due to EACCES error
+#FROM node:alpine
+#WORKDIR '/app'
+#COPY package.json .
+#RUN npm install
+#COPY . .
+#CMD ["npm", "run", "start"]
