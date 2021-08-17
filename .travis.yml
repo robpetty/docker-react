@@ -32,7 +32,7 @@ deploy:
   # EBS target app name
   app: "docker-react"
   # Environment target name, created by EBS
-  env: "Dockerreact-dev"
+  env: "Dockerreact-env"
   # Travis CI zips all files into one, copies to 
   # Travis CI then tells EBS to redeploy that zip
   bucket_name: "elasticbeanstalk-us-east-2-353084998536"
