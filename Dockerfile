@@ -11,6 +11,11 @@ RUN npm run build
 
 # second phase, only one FROM allowed per block
 FROM nginx
+# For EBS to know what port to map
+# Does nothing automatically locally, just a reminder to do something related to ports
+# EBS however will map to this automatically based on what port value
+EXPOSE 80
+
 # now copy build output
 # since AWS fails with "as tag" format can't use:
 # COPY --from=builder
