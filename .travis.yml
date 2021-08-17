@@ -23,3 +23,25 @@ script:
 #
 # -e CI=true added due to React Create App issues.
   - docker run -e CI=true rpetty2012/docker-react npm run test -- --coverage
+
+deploy:
+  # Travis CI has support for some default providers
+  provider: elasticbeanstalk
+  # Region EBS defaulted to, found via default app URL.
+  region: "us-east-2"
+  # EBS target app name
+  app: "docker-react"
+  # Environment target name, created by EBS
+  env: "Dockerreact-dev"
+  # Travis CI zips all files into one, copies to 
+  # Travis CI then tells EBS to redeploy that zip
+  bucket_name: "elasticbeanstalk-us-east-2-353084998536"
+  # Defaults to app name until you do your first build which actually uses s3.
+  bucket_path: "docker-react"
+  # Only publish when merging to master
+  on:
+    branch: master 
+    # DO NOT PUT KEYS IN HERE, USEE SECRETS MANAGEMENT
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
