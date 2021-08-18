@@ -9,6 +9,11 @@ function App() {
         <p>
           Finally, its working!
         </p>
+        <p>
+          Added this text on the feature branch.
+
+          - had to revert the link removal as it broke a test in Travis CI.
+        </p>
         <a
           className="App-link"
           href="https://reactjs.org"
